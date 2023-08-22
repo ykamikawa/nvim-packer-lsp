@@ -63,4 +63,17 @@ elseif Color_scheme == "tokyonight" then
   if not status_ok then
     print("Failed to set colorschema tokyonight")
   end
+elseif Color_scheme == "everforest" then
+  local function setEverForest()
+    vim.g.everforest_background = "hard"
+    vim.g.everforest_better_performance = 1
+
+    vim.cmd([[colorscheme everforest]])
+  end
+
+  local status_ok, _ = pcall(setEverForest)
+
+  if not status_ok then
+    print("Failed to set colorschema everforest")
+  end
 end

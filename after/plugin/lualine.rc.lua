@@ -7,8 +7,10 @@ elseif Color_scheme == "gruvbox" then
   Theme = "gruvbox"
 elseif Color_scheme == "tokyonight" then
   Theme = "tokyonight"
-else
+elseif Color_scheme == "gruvbox" then
   Theme = "gruvbox"
+elseif Color_scheme == "everforest" then
+  Theme = "everforest"
 end
 
 lualine.setup {

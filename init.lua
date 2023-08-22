@@ -6,7 +6,8 @@ require('plugins')
 -- gruvbox or neosolarized or tokyonight
 --Color_scheme = "neosolarized"
 --Color_scheme = "gruvbox"
-Color_scheme = "tokyonight"
+--Color_scheme = "tokyonight"
+Color_scheme = "everforest"
 
 local has = function(x)
   return vim.fn.has(x) == 1
