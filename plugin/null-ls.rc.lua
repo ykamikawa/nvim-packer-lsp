@@ -42,10 +42,10 @@ local sources = {
   b.diagnostics.zsh, -- ZSH
 
   -- code actions
-  b.code_actions.proselint, -- Markdonw, tex
   b.code_actions.gitsigns, -- Git operation
   b.code_actions.gitrebase, -- gitrebase
-  b.code_actions.eslint_d,
+  b.code_actions.proselint, -- Markdonw, tex
+  b.code_actions.eslint_d, -- JS, TS, react, vue
 
   -- hover
   b.hover.dictionary,

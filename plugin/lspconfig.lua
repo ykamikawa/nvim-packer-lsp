@@ -188,10 +188,10 @@ vim.keymap.set('n', 'g[', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
 vim.keymap.set('n', 'gk', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
 
 -- lsp_signature
-local status, lsp_s = pcall(require, "lsp_signature")
-if (not status) then return end
+local status_signature, lsp_s = pcall(require, "lsp_signature")
+if (not status_signature) then return end
 lsp_s.setup {}
 
-local status, fidget = pcall(require, "fidget")
-if (not status) then return end
+local status_fidget, fidget = pcall(require, "fidget")
+if (not status_fidget) then return end
 fidget.setup {}
