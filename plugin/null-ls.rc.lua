@@ -21,7 +21,7 @@ end
 
 local sources = {
   -- completion
-  b.completion.spell,
+  -- b.completion.spell,
 
   -- formatting
   b.formatting.prettierd, -- js, ts, html, css, yaml, json, markdown, etc.

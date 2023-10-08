@@ -93,6 +93,7 @@ nvim_lsp.html.setup {
 -- Javascript
 -- Typescript
 nvim_lsp.tsserver.setup {
+  init_options = require("nvim-lsp-ts-utils").init_options,
   on_attach = on_attach,
   capabilities = capabilities,
   cmd = { "typescript-language-server", "--stdio" }

@@ -44,7 +44,8 @@ packer.startup(function(use)
   use 'williamboman/mason-lspconfig.nvim' -- LSP installer config
   use 'glepnir/lspsaga.nvim' -- LSP UIs
   use 'ray-x/lsp_signature.nvim' -- Signature for LSP
-  --  use 'j-hui/fidget.nvim' -- Visualize running lsp server
+  use 'j-hui/fidget.nvim' -- Visualize running lsp server
+  use 'jose-elias-alvarez/nvim-lsp-ts-utils' -- utilities of typescript-language-server
 
   -- Formatter and linter
   use 'jose-elias-alvarez/null-ls.nvim' -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
