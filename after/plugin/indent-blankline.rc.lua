@@ -22,4 +22,8 @@ hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
   vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
 end)
 
-require("ibl").setup { indent = { highlight = highlight } }
+local status, ibl = pcall(require, 'ibl')
+if (not status) then return end
+
+ibl.setup { indent = { highlight = highlight },
+  whitespace = { highlight = highlight, remove_blankline_trail = false }, scope = { enabled = false } }

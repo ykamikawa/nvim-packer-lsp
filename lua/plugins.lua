@@ -26,22 +26,27 @@ packer.startup(function(use)
   use 'kyazdani42/nvim-web-devicons' -- File icons
   use 'norcalli/nvim-colorizer.lua' -- colorizer of color code
 
-  -- Statusline and bufferline
+  -- UI
+  -- Statusline
   use 'nvim-lualine/lualine.nvim' -- Statusline
   use 'nvim-lua/plenary.nvim' -- Common utilities
-  use 'akinsho/nvim-bufferline.lua' -- bufferline
+  -- Bufferline
+  use 'akinsho/nvim-bufferline.lua'
 
-  -- LSP and completion
+  -- LSP completion
   use 'onsails/lspkind-nvim' -- vscode-like pictograms
   use 'hrsh7th/cmp-buffer' -- nvim-cmp source for buffer words
   use 'hrsh7th/cmp-nvim-lsp' -- nvim-cmp source for neovim's built-in LSP
+  use 'hrsh7th/cmp-nvim-lsp-signature-help' -- Displaying function signature
   use 'hrsh7th/cmp-cmdline' -- Completion of command line
   use 'hrsh7th/cmp-path' -- Completion of file and directory
   use 'hrsh7th/vim-vsnip' -- snipet
   use 'hrsh7th/nvim-cmp' -- Completion
-  use 'neovim/nvim-lspconfig' -- LSP
+  -- LSP server management
+  use 'neovim/nvim-lspconfig' -- LSP server configuration
   use 'williamboman/mason.nvim' -- LSP installer
   use 'williamboman/mason-lspconfig.nvim' -- LSP installer config
+  -- LSP UI
   use 'glepnir/lspsaga.nvim' -- LSP UIs
   use 'ray-x/lsp_signature.nvim' -- Signature for LSP
   -- use { 'j-hui/fidget.nvim', tag = 'legacy' } -- Visualize running lsp server
@@ -56,17 +61,23 @@ packer.startup(function(use)
     'nvim-treesitter/nvim-treesitter', -- syntax highlight
     run = ':TSUpdate'
   }
+  -- use 'RRethy/nvim-treesitter-endwise' -- Wisely add "end"
   use 'nvim-treesitter/nvim-treesitter-textobjects' -- Additional textobjects for treesitter
   use 'romgrk/nvim-treesitter-context' -- Show code context in the above
 
   -- Filer
   use {
     "nvim-neo-tree/neo-tree.nvim",
-    branch = "v2.x",
+    branch = "v3.x",
     requires = {
       "nvim-lua/plenary.nvim",
       "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
+      "3rd/image.nvim",
+      {
+        "s1n7ax/nvim-window-picker",
+        version = "2.*",
+      },
     }
   }
 
@@ -89,6 +100,9 @@ packer.startup(function(use)
 
   -- Greeter
   use 'goolord/alpha-nvim'
+
+  -- Speed loading lua modules and files
+  use 'lewis6991/impatient.nvim'
 
   -- Utilities
   use 'folke/zen-mode.nvim'
