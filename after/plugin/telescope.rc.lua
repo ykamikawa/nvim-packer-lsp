@@ -67,6 +67,12 @@ end)
 vim.keymap.set('n', ';g', function()
   builtin.git_status()
 end)
+vim.keymap.set('n', ';v', function()
+  builtin.vim_options()
+end)
+vim.keymap.set('n', ';k', function()
+  builtin.keymaps()
+end)
 vim.keymap.set("n", "sf", function()
   telescope.extensions.file_browser.file_browser({
     path = "%:p:h",
