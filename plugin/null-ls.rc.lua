@@ -24,28 +24,33 @@ local sources = {
   -- b.completion.spell,
 
   -- formatting
-  b.formatting.prettierd, -- js, ts, html, css, yaml, json, markdown, etc.
-  b.formatting.shfmt, -- Shell
+  b.formatting.prettierd,                                -- js, ts, html, css, yaml, json, markdown, etc.
+  b.formatting.shfmt,                                    -- Shell
+  b.formatting.ruff,                                     -- Python
   b.formatting.black.with { extra_args = { "--fast" } }, -- Python
-  b.formatting.isort, -- Python
-  b.formatting.dart_format, -- Dart
-  with_root_file(b.formatting.stylua, "stylua.toml"), -- Lua
-  b.formatting.djhtml, -- Django/jinja
+  b.formatting.isort,                                    -- Python
+  b.formatting.gofumpt,                                  -- Go
+  b.formatting.goimports,                                -- Go
+  b.formatting.dart_format,                              -- Dart
+  with_root_file(b.formatting.stylua, "stylua.toml"),    -- Lua
+  b.formatting.djhtml,                                   -- Django/jinja
 
   -- diagnostics
-  b.diagnostics.write_good, -- English
-  b.diagnostics.markdownlint, -- markdown
-  b.diagnostics.tsc, -- Typescript compiler
-  b.diagnostics.mypy, -- Python
+  b.diagnostics.write_good,                            -- English
+  b.diagnostics.markdownlint,                          -- markdown
+  b.diagnostics.tsc,                                   -- Typescript compiler
+  b.diagnostics.mypy,                                  -- Python
+  b.diagnostics.ruff,                                  -- Python
+  b.diagnostics.staticcheck,                           -- Go
   with_root_file(b.diagnostics.selene, "selene.toml"), -- Lua
-  with_diagnostics_code(b.diagnostics.shellcheck), -- Shell
-  b.diagnostics.zsh, -- ZSH
+  with_diagnostics_code(b.diagnostics.shellcheck),     -- Shell
+  b.diagnostics.zsh,                                   -- ZSH
 
   -- code actions
-  b.code_actions.gitsigns, -- Git operation
+  b.code_actions.gitsigns,  -- Git operation
   b.code_actions.gitrebase, -- gitrebase
   b.code_actions.proselint, -- Markdonw, tex
-  b.code_actions.eslint_d, -- JS, TS, react, vue
+  b.code_actions.eslint_d,  -- JS, TS, react, vue
 
   -- hover
   b.hover.dictionary,
