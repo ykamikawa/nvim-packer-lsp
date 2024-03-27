@@ -29,11 +29,11 @@ local sources = {
   b.formatting.ruff,                                     -- Python
   b.formatting.black.with { extra_args = { "--fast" } }, -- Python
   b.formatting.isort,                                    -- Python
-  b.formatting.dflint,                                   -- django, jinja.html, htmldjango
+  b.formatting.djlint,                                   -- django, jinja.html, htmldjango
   b.formatting.gofumpt,                                  -- Go
   b.formatting.goimports,                                -- Go
   b.formatting.dart_format,                              -- Dart
-  with_root_file(b.foratting.stylua, "stylua.toml"),     -- Lua
+  with_root_file(b.formatting.stylua, "stylua.toml"),    -- Lua
 
   -- diagnostics
   b.diagnostics.write_good,                            -- English
