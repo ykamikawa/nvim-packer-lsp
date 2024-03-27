@@ -95,6 +95,7 @@ nvim_lsp.taplo.setup {
 nvim_lsp.html.setup {
   on_attach = on_attach,
   capabilities = capabilities,
+  filetype = { "html", "htmldjango" }
 }
 
 -- Javascript
