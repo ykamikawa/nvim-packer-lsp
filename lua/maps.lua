@@ -26,6 +26,8 @@ keymap.set('n', '<C-a>', 'gg<S-v>G')
 keymap.set('n', 'te', ':tabedit')
 keymap.set('n', 'tn', ':tabnew<CR>')
 keymap.set('n', '<C-t>n', ':tabnew<CR>')
+-- Clonse tab
+keymap.set('n', 'td', ':tabclose<CR>')
 -- Move tab
 keymap.set('n', '<C-t>N', ':tabnext<CR>')
 keymap.set('n', '<C-t>p', ':tabprevious<CR>')
