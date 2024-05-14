@@ -159,6 +159,12 @@ nvim_lsp.graphql.setup {
   capabilities = capabilities
 }
 
+-- SQL
+nvim_lsp.sqls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities
+}
+
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
     underline = true,

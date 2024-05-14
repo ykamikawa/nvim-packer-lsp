@@ -52,6 +52,9 @@ packer.startup(function(use)
   -- use { 'j-hui/fidget.nvim', tag = 'legacy' } -- Visualize running lsp server
   use 'jose-elias-alvarez/nvim-lsp-ts-utils' -- utilities of typescript-language-server
 
+  -- Copilot
+  use 'github/copilot.vim'
+
   -- Formatter and linter
   use 'jose-elias-alvarez/null-ls.nvim' -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
   use 'MunifTanjim/prettier.nvim' -- Prettier plugin for Neovim's built-in LSP client
@@ -103,6 +106,9 @@ packer.startup(function(use)
 
   -- Speed loading lua modules and files
   use 'lewis6991/impatient.nvim'
+
+  -- SQL
+  use 'nanotee/sqls.nvim'
 
   -- Utilities
   use 'folke/zen-mode.nvim'
