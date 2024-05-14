@@ -34,8 +34,8 @@ local on_attach = function(client, bufnr)
   if client.name == 'tsserver' then
     client.server_capabilities.documentFormattingProvide = false
   elseif client.name == 'jsonls' then
-    --client.resolved_capabilities.document_formatting = false
-    --client.resolved_capabilities.document_range_formatting = false
+    -- client.resolved_capabilities.document_formatting = false
+    -- client.resolved_capabilities.document_range_formatting = false
   end
 end
 
@@ -96,6 +96,12 @@ nvim_lsp.html.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   filetype = { "html", "htmldjango" }
+}
+
+-- SQL
+nvim_lsp.sqls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities
 }
 
 -- Javascript
