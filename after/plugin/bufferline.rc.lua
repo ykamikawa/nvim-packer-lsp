@@ -3,7 +3,7 @@ if (not status) then return end
 
 bufferline.setup({
   options = {
-    mode = "tabs",
+    mode = "buffers",
     indicator = { style = "underline" },
     diagnostics = "nvim_lsp",
     separator_style = 'slant',
