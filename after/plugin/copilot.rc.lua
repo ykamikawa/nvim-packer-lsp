@@ -1,2 +1,77 @@
 vim.g.copilot_no_tab_map = true
 vim.api.nvim_set_keymap("i", "<C-i>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+
+local status, chat = pcall(require, "CopilotChat")
+if (not status) then return end
+if (not chat) then return end
+chat.setup {
+  debug = true, -- Enable debug mode
+}
+
+-- バッファの内容全体を使って Copilot とチャット
+function CopilotChatBuffer()
+  local input = vim.fn.input("Quick Chat: ")
+  if input ~= "" then
+    require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
+  end
+end
+
+-- telescope を使ってアクションプロンプトを表示
+function ShowCopilotChatActionPrompt()
+  local actions = require("CopilotChat.actions")
+  require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
+end
+
+-- telescopeを使ってアクションプロンプトのヘルプを表示
+function ShowCopilotChatActionHelp()
+  local actions = require("CopilotChat.actions")
+  require("CopilotChat.integrations.telescope").pick(actions.help_actions())
+end
+
+-- Prompt Actionsの日本語化
+local select = require('CopilotChat.select')
+require("CopilotChat").setup {
+  debug = true, -- Enable debugging
+
+  -- プロンプトの設定
+  -- デフォルトは英語なので日本語でオーバーライドしています
+  prompts = {
+    Explain = {
+      prompt = '/COPILOT_EXPLAIN カーソル上のコードの説明を段落をつけて書いてください。',
+    },
+    Review = {
+      prompt = '/COPILOT_REVIEW カーソル上のコードをレビューしてください。コードの問題点や改善点を指摘してください。',
+    },
+    Fix = {
+      prompt = '/COPILOT_FIX このコードには問題があります。バグを修正したコードに書き換えてください。',
+    },
+    Optimize = {
+      prompt = '/COPILOT_REFACTOR 選択したコードを最適化し、パフォーマンスと可読性を向上させてください。',
+    },
+    Docs = {
+      prompt = '/COPILOT_REFACTOR 選択したコードのドキュメントを書いてください。ドキュメントをコメントとして追加した元のコードを含むコードブロックで回答してください。使用するプログラミング言語に最も適したドキュメントスタイルを使用してください（例：JavaScriptのJSDoc、Pythonのdocstringsなど）',
+    },
+    Tests = {
+      prompt = '/COPILOT_TESTS カーソル上のコードの詳細な単体テスト関数を書いてください。',
+    },
+    FixDiagnostic = {
+      prompt = '/COPILOT_FIXDIAGNOSTIC ファイル内の次のような診断上の問題を解決してください：',
+      selection = select.diagnostics,
+    },
+    Commit = {
+      prompt = '/COPILOT_COMMIT この変更をコミットしてください。',
+    },
+    CommitStaged = {
+      prompt = '/COPILOT_COMMITSTAGED ステージングされた変更をコミットしてください。',
+    },
+  }
+}
+
+-- <leader>cq (Copilot Chat Quick) で Copilot とチャット
+vim.api.nvim_set_keymap("n", "<leader>cq", "<cmd>lua CopilotChatBuffer()<cr>", { noremap = true, silent = true })
+-- <leader>cp (Copilot Chat Prompt の略) でアクションプロンプトを表示
+vim.api.nvim_set_keymap("n", "<leader>cp", "<cmd>lua ShowCopilotChatActionPrompt()<cr>",
+  { noremap = true, silent = true })
+-- <leader>ch (Copilot Chat Help) でアクションプロンプトのヘルプを表示
+vim.api.nvim_set_keymap("n", "<leader>ch", "<cmd>lua ShowCopilotChatActionHelp()<cr>",
+  { noremap = true, silent = true })

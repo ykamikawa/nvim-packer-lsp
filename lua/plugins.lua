@@ -102,9 +102,6 @@ packer.startup(function(use)
       "nvim-lua/plenary.nvim",
       "github/copilot.vim"
     },
-    options = {
-      debug = true,
-    },
   }
 
   -- Cursor

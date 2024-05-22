@@ -1,4 +1,3 @@
----@diagnostic disable: unused-local, redundant-parameter
 local status, nls = pcall(require, "null-ls")
 if (not status) then return end
 
@@ -28,7 +27,7 @@ local sources = {
   b.formatting.shfmt,                                    -- Shell
   b.formatting.ruff,                                     -- Python
   b.formatting.black.with { extra_args = { "--fast" } }, -- Python
-  b.formatting.isort,                                    -- Python
+  -- b.formatting.isort,                                    -- Python
   b.formatting.djlint,                                   -- django, jinja.html, htmldjango
   b.formatting.gofumpt,                                  -- Go
   b.formatting.goimports,                                -- Go
@@ -42,7 +41,7 @@ local sources = {
   b.diagnostics.tsc,                                   -- Typescript compiler
   b.diagnostics.ruff,                                  -- Python
   b.diagnostics.mypy,                                  -- Python
-  b.diagnostics.flake8,                                -- Python
+  -- b.diagnostics.flake8,                                -- Python
   b.diagnostics.curlylint,                             -- jinja.html, htmldjango
   b.diagnostics.staticcheck,                           -- Go
   with_root_file(b.diagnostics.selene, "selene.toml"), -- Lua
