@@ -34,19 +34,10 @@ end
 -- 選択した範囲の内容全体にtelescopeを使ってアクションプロンプトを表示
 function ShowCopilotChatActionPromptVisualSelection()
   local actions = require("CopilotChat.actions")
-
-  -- Visual modeで選択した範囲を取得
-  local start_pos = vim.fn.getpos("'<")
-  local end_pos = vim.fn.getpos("'>")
-  local lines = vim.fn.getline(start_pos[2], end_pos[2])
-  if #lines > 0 then
-    lines[1] = string.sub(lines[1], start_pos[3])
-    lines[#lines] = string.sub(lines[#lines], 1, end_pos[3])
-  end
-  local selection = table.concat(lines, "\n")
-
-  require("CopilotChat.integrations.telescope").pick(actions.prompt_actions(),
-    { selection = selection })
+  require("CopilotChat.integrations.telescope").pick(actions.prompt_actions({
+    selection = require("CopilotChat.select")
+        .selection
+  }))
 end
 
 -- telescopeを使ってアクションプロンプトのヘルプを表示
