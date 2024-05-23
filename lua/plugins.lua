@@ -34,6 +34,7 @@ packer.startup(function(use)
   use 'akinsho/nvim-bufferline.lua'
 
   -- LSP completion
+  use 'hrsh7th/nvim-cmp'                     -- Completion
   use 'onsails/lspkind-nvim'                 -- vscode-like pictograms
   use 'hrsh7th/cmp-buffer'                   -- nvim-cmp source for buffer words
   use 'hrsh7th/cmp-nvim-lsp'                 -- nvim-cmp source for neovim's built-in LSP
@@ -41,7 +42,6 @@ packer.startup(function(use)
   use 'hrsh7th/cmp-cmdline'                  -- Completion of command line
   use 'hrsh7th/cmp-path'                     -- Completion of file and directory
   use 'hrsh7th/vim-vsnip'                    -- snipet
-  use 'hrsh7th/nvim-cmp'                     -- Completion
   -- LSP server management
   use 'neovim/nvim-lspconfig'                -- LSP server configuration
   use 'williamboman/mason.nvim'              -- LSP installer
