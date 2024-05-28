@@ -17,5 +17,7 @@ lspconfig.setup {
     "lua_ls",
     "tailwindcss",
     "graphql",
+    "ruff",
+    "ruff_lsp"
   },
 }
