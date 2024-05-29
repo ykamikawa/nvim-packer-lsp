@@ -1,5 +1,6 @@
 local status, telescope = pcall(require, 'telescope')
 if not status then
+  print 'Telescope is not installed'
   return
 end
 local actions = require 'telescope.actions'
@@ -8,7 +9,6 @@ local builtin = require 'telescope.builtin'
 local function telescope_buffer_dir()
   return vim.fn.expand '%:p:h'
 end
-
 local fb_actions = require('telescope').extensions.file_browser.actions
 
 telescope.setup {
@@ -45,6 +45,7 @@ telescope.setup {
 }
 
 telescope.load_extension 'file_browser'
+telescope.load_extension 'dap'
 
 vim.keymap.set('n', ';f', function()
   builtin.find_files {

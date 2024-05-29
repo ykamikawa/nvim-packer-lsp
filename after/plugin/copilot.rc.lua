@@ -8,87 +8,101 @@ end
 if not chat then
   return
 end
+
+local select = require 'CopilotChat.select'
+local actions = require 'CopilotChat.actions'
+local telescope = require 'CopilotChat.integrations.telescope'
+
 chat.setup {
   debug = true, -- Enable debug mode
-}
-
--- バッファの内容全体を使って Copilot とチャット
-function CopilotChatBuffer()
-  local input = vim.fn.input 'Quick Chat: '
-  if input ~= '' then
-    require('CopilotChat').ask(input, { selection = require('CopilotChat.select').buffer })
-  end
-end
-
--- 選択範囲の内容全体を使って Copilot とチャット
-function CopilotChatSelection()
-  local input = vim.fn.input 'Quick Chat: '
-  if input ~= '' then
-    require('CopilotChat').ask(input, { selection = require('CopilotChat.select').selection })
-  end
-end
-
--- telescope を使ってアクションプロンプトを表示
-function ShowCopilotChatActionPrompt()
-  local actions = require 'CopilotChat.actions'
-  require('CopilotChat.integrations.telescope').pick(actions.prompt_actions())
-end
-
--- 選択した範囲の内容全体にtelescopeを使ってアクションプロンプトを表示
-function ShowCopilotChatActionPromptVisualSelection()
-  local actions = require 'CopilotChat.actions'
-  require('CopilotChat.integrations.telescope').pick(actions.prompt_actions {
-    selection = require('CopilotChat.select').selection,
-  })
-end
-
--- telescopeを使ってアクションプロンプトのヘルプを表示
-function ShowCopilotChatActionHelp()
-  local actions = require 'CopilotChat.actions'
-  require('CopilotChat.integrations.telescope').pick(actions.help_actions())
-end
-
--- Prompt Actionsの日本語化
-local select = require 'CopilotChat.select'
-require('CopilotChat').setup {
-  debug = true, -- Enable debugging
-
-  -- プロンプトの設定
-  -- デフォルトは英語なので日本語でオーバーライドしています
+  window = {
+    layout = 'horizontal', -- 'vertical', 'horizontal', 'float', 'replace'
+    width = 0.5, -- fractional width of parent, or absolute width in columns when > 1
+    height = 0.4, -- fractional height of parent, or absolute height in rows when > 1
+    -- Options below only apply to floating windows
+    relative = 'editor', -- 'editor', 'win', 'cursor', 'mouse'
+    border = 'single', -- 'none', single', 'double', 'rounded', 'solid', 'shadow'
+    row = 1, -- row position of the window, default is centered
+    col = nil, -- column position of the window, default is centered
+    title = 'Copilot Chat', -- title of chat window
+    footer = nil, -- footer of chat window
+    zindex = 1, -- determines if window is on top or below other floating windows
+  },
+  -- Override the default prompts
   prompts = {
     Explain = {
       prompt = '/COPILOT_EXPLAIN 選択したコードの説明を段落をつけて書いてください。',
+      selection = select.selection,
     },
     Fix = {
       prompt = '/COPILOT_FIX このコードには問題があります。バグを修正したコードに書き換えてください。',
+      selection = select.selection,
     },
     Optimize = {
       prompt = '/COPILOT_OPTIMIZE 選択したコードを最適化し、パフォーマンスと可読性を向上させてください。',
+      selection = select.selection,
     },
     Docs = {
       prompt = '/COPILOT_DOCS 選択したコードのドキュメントを書いてください。ドキュメントをコメントとして追加した元のコードを含むコードブロックで回答してください。使用するプログラミング言語に最も適したドキュメントスタイルを使用してください（例：JavaScriptのJSDoc、Pythonのdocstringsなど）',
+      selection = select.selection,
     },
     Tests = {
       prompt = '/COPILOT_TESTS 選択したコードの詳細な単体テスト関数を書いてください。',
+      selection = select.selection,
     },
     FixDiagnostic = {
       prompt = '/COPILOT_FIXDIAGNOSTIC ファイル内の次のような診断上の問題を解決してください：',
-      selection = select.diagnostics,
+      selection = select.diagnostics or select.selection,
     },
     Commit = {
       prompt = '/COPILOT_COMMIT この変更をコミットしてください。',
+      selection = select.gitdiff or select.selection,
     },
     CommitStaged = {
       prompt = '/COPILOT_COMMITSTAGED ステージングされた変更をコミットしてください。',
+      selection = select.selection,
     },
   },
 }
 
--- cq (Copilot Chat Quick) で buffer全体の内容でCopilot とチャット
+-- chat with Copilot using the entire buffer content
+function CopilotChatBuffer()
+  local input = vim.fn.input 'Quick Chat: '
+  if input ~= '' then
+    chat.ask(input, { selection = select.buffer })
+  end
+end
+
+-- chat with Copilot using the selected content
+function CopilotChatSelection()
+  local input = vim.fn.input 'Quick Chat: '
+  if input ~= '' then
+    chat.ask(input, { selection = select.selection })
+  end
+end
+
+-- display the action prompt using telescope
+function ShowCopilotChatActionPrompt()
+  telescope.pick(actions.prompt_actions())
+end
+
+-- display the action prompt using telescope with the visual selection
+function ShowCopilotChatActionPromptVisualSelection()
+  telescope.pick(actions.prompt_actions {
+    selection = select.selection,
+  })
+end
+
+-- display the action help using telescope
+function ShowCopilotChatActionHelp()
+  telescope.pick(actions.help_actions())
+end
+
+-- cq (Copilot Chat Buffer) chat with Copilot using the entire buffer content
 vim.api.nvim_set_keymap('n', 'cq', '<cmd>lua CopilotChatBuffer()<cr>', { noremap = true, silent = true })
--- cs (Copilot Chat Selection) で選択範囲とCopilot とチャット
+-- cs (Copilot Chat Selection) chat with Copilot using the selected content
 vim.api.nvim_set_keymap('v', 'cq', '<cmd>lua CopilotChatSelection()<cr>', { noremap = true, silent = true })
--- cp (Copilot Chat Prompt の略) でアクションプロンプトを表示
+-- cp (Copilot Chat Prompt) display the action prompt using telescope
 vim.api.nvim_set_keymap('n', 'cp', '<cmd>lua ShowCopilotChatActionPrompt()<cr>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap(
   'v',
@@ -96,5 +110,5 @@ vim.api.nvim_set_keymap(
   '<cmd>lua ShowCopilotChatActionPromptVisualSelection()<cr>',
   { noremap = true, silent = true }
 )
--- ch (Copilot Chat Help) でアクションプロンプトのヘルプを表示
+-- ch (Copilot Chat Help) display the action help using telescope
 vim.api.nvim_set_keymap('n', 'ch', '<cmd>lua ShowCopilotChatActionHelp()<cr>', { noremap = true, silent = true })

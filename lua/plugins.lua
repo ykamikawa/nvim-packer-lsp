@@ -11,6 +11,7 @@ packer.startup(function(use)
   use 'wbthomason/packer.nvim'
 
   -- Color scheme
+  use 'tjdevries/colorbuddy.nvim'
   use {
     'svrana/neosolarized.nvim',
     requires = { 'tjdevries/colorbuddy.nvim' },
@@ -54,6 +55,7 @@ packer.startup(function(use)
 
   -- Formatter and linter
   use 'jose-elias-alvarez/null-ls.nvim'
+  use 'vim-test/vim-test'
   use {
     'nvimtools/none-ls.nvim',
     requires = {
@@ -74,6 +76,9 @@ packer.startup(function(use)
   use 'romgrk/nvim-treesitter-context' -- Show code context in the above
 
   -- Filer
+  use 'MunifTanjim/nui.nvim' -- Filer
+  use '3rd/image.nvim' -- Image preview
+  use 's1n7ax/nvim-window-picker' -- Window picker
   use {
     'nvim-neo-tree/neo-tree.nvim',
     branch = 'v3.x',
@@ -92,6 +97,7 @@ packer.startup(function(use)
   -- Fuzzy finder
   use 'nvim-telescope/telescope.nvim' -- fuzzy finder
   use 'nvim-telescope/telescope-file-browser.nvim' -- filer of telescope
+  use 'nvim-telescope/telescope-dap.nvim' -- dap of telescope
 
   -- Git
   use 'lewis6991/gitsigns.nvim'
@@ -108,6 +114,14 @@ packer.startup(function(use)
       'github/copilot.vim',
     },
   }
+
+  -- DAP
+  use 'mfussenegger/nvim-dap'
+  use 'nvim-neotest/nvim-nio'
+  use { 'rcarriga/nvim-dap-ui', requires = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' } }
+  use 'theHamsta/nvim-dap-virtual-text'
+  use 'mfussenegger/nvim-dap-python'
+  use 'LiadOz/nvim-dap-repl-highlights'
 
   -- Cursor
   use 'rainbowhxch/accelerated-jk.nvim'
