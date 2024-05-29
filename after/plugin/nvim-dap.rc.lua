@@ -71,9 +71,15 @@ virtual_text.setup {}
 highlight.setup()
 
 -- nvim-dap-python
-local command = os.getenv 'VIRTUAL_ENV' .. '/bin/python'
-python.setup(command)
-python.test_runner = 'pytest'
+local venv = os.getenv 'VIRTUAL_ENV'
+if venv == nil then
+  print 'VIRTUAL_ENV is not set'
+  return
+else
+  local command = string.format('%s/bin/python', venv)
+  python.setup(command)
+  python.test_runner = 'pytest'
+end
 
 -- key mappings
 vim.api.nvim_set_keymap('n', '<F5>', ':DapContinue<CR>', { silent = true })
