@@ -23,7 +23,8 @@ local sources = {
   -- b.completion.spell,
 
   -- formatting
-  b.formatting.prettierd,                                -- js, ts, html, css, yaml, json, markdown, etc.
+  -- b.formatting.prettierd,                                -- js, ts, html, css, yaml, json, markdown, etc.
+  b.formatting.eslint_d,                                 -- js, ts, react, vue
   b.formatting.shfmt,                                    -- Shell
   b.formatting.ruff,                                     -- Python
   b.formatting.black.with { extra_args = { "--fast" } }, -- Python
