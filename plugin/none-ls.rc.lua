@@ -42,7 +42,7 @@ local sources = {
   -- diagnostics.flake8,                                -- Python
   diagnostics.curlylint, -- jinja.html, htmldjango
   diagnostics.staticcheck, -- Go
-  diagnostics.selene.with { extra_args = { '--display-style-guide' } }, -- Lua
+  diagnostics.selene, -- Lua
   with_diagnostics_code(diagnostics.shellcheck), -- Shell
   diagnostics.zsh, -- ZSH
 
