@@ -1,7 +1,7 @@
 local Color, colors, Group, groups, styles = require('colorbuddy').setup()
 
-if Color_scheme == "gruvbox" then
-  require('colorbuddy').colorscheme('gruvbuddy')
+if Color_scheme == 'gruvbox' then
+  require('colorbuddy').colorscheme 'gruvbuddy'
 
   -- Use Color.new(<name>, <#rrggbb>) to create new colors
   -- They can be accessed through colors.<name>
@@ -17,14 +17,15 @@ if Color_scheme == "gruvbox" then
 
   -- Define highlights in relative terms of other colors
   Group.new('Error', colors.red:light(), nil, styles.bold)
-
-elseif Color_scheme == "neosolarized" then
+elseif Color_scheme == 'neosolarized' then
   local status, c = pcall(require, Color_scheme)
-  if (not status) then return end
+  if not status then
+    return
+  end
 
-  c.setup({
+  c.setup {
     comment_italics = true,
-  })
+  }
 
   Color.new('black', '#000000')
   Group.new('CursorLine', colors.none, colors.base03, styles.NONE, colors.base1)
@@ -36,44 +37,44 @@ elseif Color_scheme == "neosolarized" then
   local cWarn = groups.Warning.fg
   local cHint = groups.Hint.fg
 
-  Group.new("DiagnosticVirtualTextError", cError, cError:dark():dark():dark():dark(), styles.NONE)
-  Group.new("DiagnosticVirtualTextInfo", cInfo, cInfo:dark():dark():dark(), styles.NONE)
-  Group.new("DiagnosticVirtualTextWarn", cWarn, cWarn:dark():dark():dark(), styles.NONE)
-  Group.new("DiagnosticVirtualTextHint", cHint, cHint:dark():dark():dark(), styles.NONE)
-  Group.new("DiagnosticUnderlineError", colors.none, colors.none, styles.undercurl, cError)
-  Group.new("DiagnosticUnderlineWarn", colors.none, colors.none, styles.undercurl, cWarn)
-  Group.new("DiagnosticUnderlineInfo", colors.none, colors.none, styles.undercurl, cInfo)
-  Group.new("DiagnosticUnderlineHint", colors.none, colors.none, styles.undercurl, cHint)
-elseif Color_scheme == "tokyonight" then
+  Group.new('DiagnosticVirtualTextError', cError, cError:dark():dark():dark():dark(), styles.NONE)
+  Group.new('DiagnosticVirtualTextInfo', cInfo, cInfo:dark():dark():dark(), styles.NONE)
+  Group.new('DiagnosticVirtualTextWarn', cWarn, cWarn:dark():dark():dark(), styles.NONE)
+  Group.new('DiagnosticVirtualTextHint', cHint, cHint:dark():dark():dark(), styles.NONE)
+  Group.new('DiagnosticUnderlineError', colors.none, colors.none, styles.undercurl, cError)
+  Group.new('DiagnosticUnderlineWarn', colors.none, colors.none, styles.undercurl, cWarn)
+  Group.new('DiagnosticUnderlineInfo', colors.none, colors.none, styles.undercurl, cInfo)
+  Group.new('DiagnosticUnderlineHint', colors.none, colors.none, styles.undercurl, cHint)
+elseif Color_scheme == 'tokyonight' then
   local function setTokyo()
-    vim.g.tokyonight_style = "night"
+    vim.g.tokyonight_style = 'night'
     vim.g.tokyonight_italic_functions = true
     vim.g.tokyonight_transparent = true
     vim.g.tokyonight_transparent_sidebar = true
-    vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
+    vim.g.tokyonight_sidebars = { 'qf', 'vista_kind', 'terminal', 'packer' }
 
     -- Change the "hint" color to the "orange" color, and make the "error" color bright red
     -- vim.g.tokyonight_colors = { hint = "orange", error = "#ff0000" }
 
-    vim.cmd([[colorscheme tokyonight]])
+    vim.cmd [[colorscheme tokyonight]]
   end
 
   local status_ok, _ = pcall(setTokyo)
 
   if not status_ok then
-    print("Failed to set colorschema tokyonight")
+    print 'Failed to set colorschema tokyonight'
   end
-elseif Color_scheme == "everforest" then
+elseif Color_scheme == 'everforest' then
   local function setEverForest()
-    vim.g.everforest_background = "hard"
+    vim.g.everforest_background = 'hard'
     vim.g.everforest_better_performance = 1
 
-    vim.cmd([[colorscheme everforest]])
+    vim.cmd [[colorscheme everforest]]
   end
 
   local status_ok, _ = pcall(setEverForest)
 
   if not status_ok then
-    print("Failed to set colorschema everforest")
+    print 'Failed to set colorschema everforest'
   end
 end
