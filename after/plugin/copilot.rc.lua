@@ -5,8 +5,7 @@ local status, chat = pcall(require, "CopilotChat")
 if (not status) then return end
 if (not chat) then return end
 chat.setup {
-  debug = true,    -- Enable debug mode
-  model = 'gpt-4', -- Use the GPT-4 model
+  debug = true, -- Enable debug mode
 }
 
 -- バッファの内容全体を使って Copilot とチャット
