@@ -77,7 +77,7 @@ packer.startup(function(use)
 
   -- Filer
   use 'MunifTanjim/nui.nvim' -- Filer
-  use '3rd/image.nvim' -- Image preview
+  use { '3rd/image.nvim', version = '1.1.0' }
   use 's1n7ax/nvim-window-picker' -- Window picker
   use {
     'nvim-neo-tree/neo-tree.nvim',
@@ -122,6 +122,22 @@ packer.startup(function(use)
   use 'theHamsta/nvim-dap-virtual-text'
   use 'mfussenegger/nvim-dap-python'
   use 'LiadOz/nvim-dap-repl-highlights'
+
+  -- jupyter
+  use {
+    'GCBallesteros/jupytext.nvim',
+  }
+  use 'echasnovski/mini.comment'
+  use 'anuvyklack/hydra.nvim'
+  use {
+    'benlubas/molten-nvim',
+    build = ':UpdateRemotePlugins',
+    requires = { '3rd/image.nvim' },
+  }
+  use {
+    'GCBallesteros/NotebookNavigator.nvim',
+    requires = { 'echasnovski/mini.comment', 'anuvyklack/hydra.nvim', 'benlubas/molten-nvim' },
+  }
 
   -- Cursor
   use 'rainbowhxch/accelerated-jk.nvim'

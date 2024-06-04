@@ -1,5 +1,6 @@
 local status, zenMode = pcall(require, 'zen-mode')
 if not status then
+  print 'zen-mode is not installed'
   return
 end
 
