@@ -123,22 +123,6 @@ packer.startup(function(use)
   use 'mfussenegger/nvim-dap-python'
   use 'LiadOz/nvim-dap-repl-highlights'
 
-  -- jupyter
-  use {
-    'GCBallesteros/jupytext.nvim',
-  }
-  use 'echasnovski/mini.comment'
-  use 'anuvyklack/hydra.nvim'
-  use {
-    'benlubas/molten-nvim',
-    build = ':UpdateRemotePlugins',
-    requires = { '3rd/image.nvim' },
-  }
-  use {
-    'GCBallesteros/NotebookNavigator.nvim',
-    requires = { 'echasnovski/mini.comment', 'anuvyklack/hydra.nvim', 'benlubas/molten-nvim' },
-  }
-
   -- Cursor
   use 'rainbowhxch/accelerated-jk.nvim'
   -- use 'karb94/neoscroll.nvim' -- scroll smoothlly
