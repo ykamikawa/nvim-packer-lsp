@@ -29,12 +29,6 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
 
-  -- python
-  if client.name == 'ruff_lsp' then
-    -- Disable hover in favor of Pyright
-    client.server_capabilities.hoverProvider = false
-  end
-
   -- typescript
   if client.name == 'tsserver' then
     client.server_capabilities.documentFormattingProvide = false
@@ -123,10 +117,10 @@ nvim_lsp.dartls.setup {
 }
 
 -- python
-nvim_lsp.pyright.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-}
+-- nvim_lsp.pyright.setup {
+--   on_attach = on_attach,
+--   capabilities = capabilities,
+-- }
 nvim_lsp.ruff_lsp.setup {
   on_attach = on_attach,
   capabilities = capabilities,
@@ -197,15 +191,15 @@ vim.diagnostic.config {
 }
 
 -- keymaps
-vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>') -- カーソル下の変数の情報
+vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')       -- カーソル下の変数の情報
 vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>') -- カーソル下の参照箇所の表示
 vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>') -- カーソル下の定義ジャンプ
 vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
 vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
 vim.keymap.set('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-vim.keymap.set('n', 'gn', '<cmd>lua vim.lsp.buf.rename()<CR>') -- 変数のリネーム
-vim.keymap.set('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>') -- Error/warning/Hintの修正候補
-vim.keymap.set('n', 'gf', '<cmd>lua vim.lsp.buf.format({async=true})<CR>') -- format
+vim.keymap.set('n', 'gn', '<cmd>lua vim.lsp.buf.rename()<CR>')                    -- 変数のリネーム
+vim.keymap.set('n', 'ga', '<cmd>lua vim.lsp.buf.code_action()<CR>')               -- Error/warning/Hintの修正候補
+vim.keymap.set('n', 'gf', '<cmd>lua vim.lsp.buf.format({async=true})<CR>')        -- format
 vim.keymap.set('n', '<Leader>x', '<cmd>lua vim.lsp.buf.format({async=true})<CR>') -- format
 vim.keymap.set('n', 'ge', '<cmd>lua vim.diagnostic.open_float()<CR>')
 vim.keymap.set('n', 'g]', '<cmd>lua vim.diagnostic.goto_next()<CR>')

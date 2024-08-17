@@ -35,6 +35,7 @@ vim.opt.path:append { '**' } -- Finding files - Search down into subfolders
 vim.opt.wildmenu = true
 vim.opt.wildignore:append { '*/node_modules/*' }
 vim.opt.mouse = 'a'
+vim.opt.clipboard:append('unnamedplus')
 
 -- Add one virtual char
 vim.cmd [[
