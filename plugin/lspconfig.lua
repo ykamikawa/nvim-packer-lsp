@@ -29,6 +29,12 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
 
+  -- python
+  if client.name == 'ruff_lsp' then
+    -- Disable hover in favor of Pyright
+    client.server_capabilities.hoverProvider = false
+  end
+
   -- typescript
   if client.name == 'tsserver' then
     client.server_capabilities.documentFormattingProvide = false
@@ -117,10 +123,23 @@ nvim_lsp.dartls.setup {
 }
 
 -- python
--- nvim_lsp.pyright.setup {
---   on_attach = on_attach,
---   capabilities = capabilities,
--- }
+nvim_lsp.pyright.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    python = {
+      analysis = {
+        -- https://github.com/microsoft/pyright/blob/main/docs/settings.md
+        diagnosticSeverityOverrides = {
+          reportArgumentType = 'none',
+          reportAttributeAccessIssue = 'none',
+          reportCallIssue = 'none',
+          reportPrivateImportUsage = 'none',
+        },
+      },
+    },
+  },
+}
 nvim_lsp.ruff_lsp.setup {
   on_attach = on_attach,
   capabilities = capabilities,

@@ -21,36 +21,36 @@ local sources = {
 
   -- formatting
   -- formatting.prettierd,                                -- js, ts, html, css, yaml, json, markdown, etc.
-  formatting.eslint_d, -- js, ts, react, vue
-  formatting.shfmt, -- Shell
-  formatting.ruff, -- Python
+  formatting.eslint_d,                                 -- js, ts, react, vue
+  formatting.shfmt,                                    -- Shell
+  formatting.ruff,                                     -- Python
   formatting.black.with { extra_args = { '--fast' } }, -- Python
   -- formatting.isort,                                    -- Python
-  formatting.djlint, -- django, jinja.html, htmldjango
-  formatting.gofumpt, -- Go
-  formatting.goimports, -- Go
-  formatting.dart_format, -- Dart
-  formatting.stylua, -- Lua
+  formatting.djlint,                                   -- django, jinja.html, htmldjango
+  formatting.gofumpt,                                  -- Go
+  formatting.goimports,                                -- Go
+  formatting.dart_format,                              -- Dart
+  formatting.stylua,                                   -- Lua
 
   -- diagnostics
-  diagnostics.write_good, -- English
-  diagnostics.markdownlint, -- markdown
-  diagnostics.eslint_d, -- Javascript, Typescript
-  diagnostics.tsc, -- Javascript, Typescript
-  diagnostics.ruff, -- Python
-  diagnostics.mypy, -- Python
+  diagnostics.write_good,                        -- English
+  diagnostics.markdownlint,                      -- markdown
+  diagnostics.eslint_d,                          -- Javascript, Typescript
+  diagnostics.tsc,                               -- Javascript, Typescript
+  -- diagnostics.ruff,                              -- Python
+  diagnostics.mypy,                              -- Python
   -- diagnostics.flake8,                                -- Python
-  diagnostics.curlylint, -- jinja.html, htmldjango
-  diagnostics.staticcheck, -- Go
-  diagnostics.selene, -- Lua
+  diagnostics.curlylint,                         -- jinja.html, htmldjango
+  diagnostics.staticcheck,                       -- Go
+  diagnostics.selene,                            -- Lua
   with_diagnostics_code(diagnostics.shellcheck), -- Shell
-  diagnostics.zsh, -- ZSH
+  diagnostics.zsh,                               -- ZSH
 
   -- code actions
-  code_actions.gitsigns, -- Git operation
+  code_actions.gitsigns,  -- Git operation
   code_actions.gitrebase, -- gitrebase
   code_actions.proselint, -- Markdonw, tex
-  code_actions.eslint_d, -- js, ts, react, vue
+  code_actions.eslint_d,  -- js, ts, react, vue
 
   -- hover
   hover.dictionary,
