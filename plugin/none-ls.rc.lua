@@ -31,6 +31,7 @@ local sources = {
   formatting.goimports,                                -- Go
   formatting.dart_format,                              -- Dart
   formatting.stylua,                                   -- Lua
+  formatting.sqlfluff,                                 -- SQL
 
   -- diagnostics
   diagnostics.write_good,                        -- English
@@ -43,6 +44,7 @@ local sources = {
   diagnostics.curlylint,                         -- jinja.html, htmldjango
   diagnostics.staticcheck,                       -- Go
   diagnostics.selene,                            -- Lua
+  diagnostics.sqlfluff,                          -- SQL
   with_diagnostics_code(diagnostics.shellcheck), -- Shell
   diagnostics.zsh,                               -- ZSH
 
