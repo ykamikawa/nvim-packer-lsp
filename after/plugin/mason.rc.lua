@@ -19,7 +19,6 @@ lspconfig.setup {
     'taplo',
     'html',
     'tsserver',
-    'gopls',
     'pyright',
     'ruff',
     'ruff_lsp',
