@@ -14,20 +14,13 @@ local actions = require 'CopilotChat.actions'
 local telescope = require 'CopilotChat.integrations.telescope'
 
 chat.setup {
-  debug = true, -- Enable debug mode
-  window = {
-    layout = 'horizontal', -- 'vertical', 'horizontal', 'float', 'replace'
-    width = 0.5, -- fractional width of parent, or absolute width in columns when > 1
-    height = 0.4, -- fractional height of parent, or absolute height in rows when > 1
-    -- Options below only apply to floating windows
-    relative = 'editor', -- 'editor', 'win', 'cursor', 'mouse'
-    border = 'single', -- 'none', single', 'double', 'rounded', 'solid', 'shadow'
-    row = 1, -- row position of the window, default is centered
-    col = nil, -- column position of the window, default is centered
-    title = 'Copilot Chat', -- title of chat window
-    footer = nil, -- footer of chat window
-    zindex = 1, -- determines if window is on top or below other floating windows
-  },
+  debug = true,           -- Enable debug mode
+  proxy = nil,            -- Proxy server URL
+  allow_insecure = false, -- Allow insecure connections
+
+  model = "gpt-4o",       -- Model to use for chat
+  temperature = 0.1,      -- Temperature for sampling
+
   -- Override the default prompts
   prompts = {
     Explain = {
@@ -62,6 +55,19 @@ chat.setup {
       prompt = '/COPILOT_COMMITSTAGED ステージングされた変更をコミットしてください。',
       selection = select.selection,
     },
+  },
+  window = {
+    layout = 'horizontal',  -- 'vertical', 'horizontal', 'float', 'replace'
+    width = 0.5,            -- fractional width of parent, or absolute width in columns when > 1
+    height = 0.4,           -- fractional height of parent, or absolute height in rows when > 1
+    -- Options below only apply to floating windows
+    relative = 'editor',    -- 'editor', 'win', 'cursor', 'mouse'
+    border = 'single',      -- 'none', single', 'double', 'rounded', 'solid', 'shadow'
+    row = 1,                -- row position of the window, default is centered
+    col = nil,              -- column position of the window, default is centered
+    title = 'Copilot Chat', -- title of chat window
+    footer = nil,           -- footer of chat window
+    zindex = 1,             -- determines if window is on top or below other floating windows
   },
 }
 
