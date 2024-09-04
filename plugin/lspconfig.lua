@@ -29,13 +29,13 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
 
-  -- python
+  -- Python
   if client.name == 'ruff_lsp' then
     -- Disable hover in favor of Pyright
     client.server_capabilities.hoverProvider = false
   end
 
-  -- typescript
+  -- Typescript
   if client.name == 'tsserver' then
     client.server_capabilities.documentFormattingProvide = false
     -- elseif client.name == 'jsonls' then
@@ -107,8 +107,7 @@ nvim_lsp.sqls.setup {
   capabilities = capabilities,
 }
 
--- Javascript
--- Typescript
+-- Javascript, Typescript
 nvim_lsp.tsserver.setup {
   init_options = require('nvim-lsp-ts-utils').init_options,
   on_attach = on_attach,
@@ -122,7 +121,7 @@ nvim_lsp.dartls.setup {
   capabilities = capabilities,
 }
 
--- python
+-- Python
 nvim_lsp.pyright.setup {
   on_attach = on_attach,
   capabilities = capabilities,
@@ -145,13 +144,13 @@ nvim_lsp.ruff_lsp.setup {
   capabilities = capabilities,
 }
 
--- go
+-- Go
 nvim_lsp.gopls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
 }
 
--- lua
+-- Lua
 nvim_lsp.lua_ls.setup {
   settings = {
     Lua = {
@@ -175,13 +174,13 @@ nvim_lsp.lua_ls.setup {
   },
 }
 
--- tailwindCSS
+-- TailwindCSS
 nvim_lsp.tailwindcss.setup {
   on_attach = on_attach,
   capabilities = capabilities,
 }
 
--- graphQL
+-- GraphQL
 nvim_lsp.graphql.setup {
   on_attach = on_attach,
   capabilities = capabilities,
@@ -199,6 +198,11 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagn
   virtual_text = false,
   severity_sort = true,
 })
+vim.typos_lsp.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+vim.lsp.set_log_level("debug")
 
 -- Diagnostic symbols in the sign column (gutter)
 local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
