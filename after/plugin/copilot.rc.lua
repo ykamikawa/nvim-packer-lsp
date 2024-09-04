@@ -55,6 +55,29 @@ chat.setup {
       prompt = '/COPILOT_COMMITSTAGED ステージングされた変更をコミットしてください。',
       selection = select.selection,
     },
+    LoadRepository = {
+      prompt = "Load and chat with the content of gpt-repository-loader file for the current repository",
+      selection = function()
+        local repo_path = vim.fn.system('git rev-parse --show-toplevel'):gsub("\n", "")
+        local gpt_repo_loader_dir = os.getenv("HOME") .. '/gpt-repository-loader/'
+        local output_file_path = gpt_repo_loader_dir .. 'output.txt'
+        local cmd = 'python ' ..
+            gpt_repo_loader_dir ..
+            'gpt_repository_loader.py ' .. repo_path .. '-o ' .. output_file_path
+        vim.fn.system(cmd)
+        local file_path = vim.fn.expand(output_file_path)
+        local file_content = vim.fn.readfile(file_path)
+        if not file_content or #file_content == 0 then
+          vim.notify('No content found in ' .. file_path, vim.log.levels.ERROR)
+          return nil
+        end
+        return {
+          lines = table.concat(file_content, '\n'),
+          filename = file_path,
+          filetype = vim.fn.fnamemodify(file_path, ':e'),
+        }
+      end,
+    }
   },
   window = {
     layout = 'horizontal',  -- 'vertical', 'horizontal', 'float', 'replace'
@@ -71,6 +94,14 @@ chat.setup {
   },
 }
 
+-- chat with Copilot using the selected content
+function CopilotChatSelection()
+  local input = vim.fn.input 'Quick Chat: '
+  if input ~= '' then
+    chat.ask(input, { selection = select.selection })
+  end
+end
+
 -- chat with Copilot using the entire buffer content
 function CopilotChatBuffer()
   local input = vim.fn.input 'Quick Chat: '
@@ -80,10 +111,32 @@ function CopilotChatBuffer()
 end
 
 -- chat with Copilot using the selected content
-function CopilotChatSelection()
+function CopilotChatLoadRepository()
   local input = vim.fn.input 'Quick Chat: '
   if input ~= '' then
-    chat.ask(input, { selection = select.selection })
+    local repo_path = vim.fn.system('git rev-parse --show-toplevel'):gsub("\n", "")
+    local gpt_repo_loader_dir = os.getenv("HOME") .. '/gpt-repository-loader/'
+    local output_file_path = gpt_repo_loader_dir .. 'output.txt'
+    local cmd = 'python ' ..
+        gpt_repo_loader_dir ..
+        'gpt_repository_loader.py ' .. repo_path .. ' -o ' .. output_file_path
+    vim.fn.system(cmd)
+    local file_path = vim.fn.expand(output_file_path)
+    local file_content = vim.fn.readfile(file_path)
+    if not file_content or #file_content == 0 then
+      vim.notify('No content found in ' .. file_path, vim.log.levels.ERROR)
+      return
+    end
+    chat.ask(input, {
+      selection = function()
+        return
+        {
+          lines = table.concat(file_content, '\n'),
+          filename = file_path,
+          filetype = vim.fn.fnamemodify(file_path, ':e'),
+        }
+      end
+    })
   end
 end
 
@@ -108,6 +161,8 @@ end
 vim.api.nvim_set_keymap('n', 'cq', '<cmd>lua CopilotChatBuffer()<cr>', { noremap = true, silent = true })
 -- cs (Copilot Chat Selection) chat with Copilot using the selected content
 vim.api.nvim_set_keymap('v', 'cq', '<cmd>lua CopilotChatSelection()<cr>', { noremap = true, silent = true })
+-- cr (Copilot Chat Load Repository) chat with Copilot using the GPT repository loader file content
+vim.api.nvim_set_keymap('n', 'cr', '<cmd>lua CopilotChatLoadRepository()<cr>', { noremap = true, silent = true })
 -- cp (Copilot Chat Prompt) display the action prompt using telescope
 vim.api.nvim_set_keymap('n', 'cp', '<cmd>lua ShowCopilotChatActionPrompt()<cr>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap(
