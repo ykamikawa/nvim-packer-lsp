@@ -198,8 +198,8 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagn
   virtual_text = false,
   severity_sort = true,
 })
-vim.typos_lsp.setup {
-  on_attach = on_attach,
+nvim_lsp.typos_lsp.setup {
+  on_ttach = on_attach,
   capabilities = capabilities,
 }
 vim.lsp.set_log_level("debug")

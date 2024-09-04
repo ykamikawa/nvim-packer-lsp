@@ -25,7 +25,5 @@ lspconfig.setup {
     'lua_ls',
     'tailwindcss',
     'graphql',
-    'typos',
-    'typos-lsp'
   },
 }
