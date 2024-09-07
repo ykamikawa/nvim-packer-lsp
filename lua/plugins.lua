@@ -42,7 +42,7 @@ packer.startup(function(use)
   use 'hrsh7th/cmp-nvim-lsp-signature-help'  -- Displaying function signature
   use 'hrsh7th/cmp-cmdline'                  -- Completion of command line
   use 'hrsh7th/cmp-path'                     -- Completion of file and directory
-  use 'hrsh7th/vim-vsnip'                    -- snipet
+  use 'hrsh7th/vim-vsnip'                    -- snippet
   -- LSP server management
   use 'neovim/nvim-lspconfig'                -- LSP server configuration
   use 'williamboman/mason.nvim'              -- LSP installer

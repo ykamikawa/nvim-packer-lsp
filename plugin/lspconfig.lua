@@ -108,7 +108,7 @@ nvim_lsp.sqls.setup {
 }
 
 -- Javascript, Typescript
-nvim_lsp.tsserver.setup {
+nvim_lsp.ts_ls.setup {
   init_options = require('nvim-lsp-ts-utils').init_options,
   on_attach = on_attach,
   capabilities = capabilities,
