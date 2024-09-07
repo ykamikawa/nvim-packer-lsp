@@ -13,6 +13,60 @@ local select = require 'CopilotChat.select'
 local actions = require 'CopilotChat.actions'
 local telescope = require 'CopilotChat.integrations.telescope'
 
+-- chat with Copilot using the selected content
+function CopilotChatSelection()
+  local input = vim.fn.input 'Quick Chat: '
+  if input ~= '' then
+    chat.ask(input, { selection = select.selection })
+  end
+end
+
+-- chat with Copilot using the entire buffer content
+function CopilotChatBuffer()
+  local input = vim.fn.input 'Quick Chat: '
+  if input ~= '' then
+    chat.ask(input, { selection = select.buffer })
+  end
+end
+
+-- chat with Copilot using the selected content
+function CopilotChatLoadRepository()
+  local repo_path = vim.fn.input('Enter repository repository path: ')
+  if repo_path == '' then
+    repo_path = vim.fn.system('git rev-parse --show-toplevel'):gsub("\n", "")
+  else
+    -- Check if the path is relative and convert to absolute path
+    if not repo_path:match("^/") then
+      repo_path = vim.fn.expand(vim.fn.getcwd() .. '/' .. repo_path)
+    end
+  end
+  local input = vim.fn.input 'Quick Chat: '
+  if input ~= '' then
+    local gpt_repo_loader_dir = os.getenv("HOME") .. '/gpt-repository-loader/'
+    local output_file_path = gpt_repo_loader_dir .. 'output.txt'
+    local cmd = 'python ' ..
+        gpt_repo_loader_dir ..
+        'gpt_repository_loader.py ' .. repo_path .. ' -o ' .. output_file_path
+    vim.fn.system(cmd)
+    local file_path = vim.fn.expand(output_file_path)
+    local file_content = vim.fn.readfile(file_path)
+    if not file_content or #file_content == 0 then
+      vim.notify('No content found in ' .. file_path, vim.log.levels.ERROR)
+      return
+    end
+    chat.ask(input, {
+      selection = function()
+        return
+        {
+          lines = table.concat(file_content, '\n'),
+          filename = file_path,
+          filetype = vim.fn.fnamemodify(file_path, ':e'),
+        }
+      end
+    })
+  end
+end
+
 chat.setup {
   debug = true,           -- Enable debug mode
   proxy = nil,            -- Proxy server URL
@@ -57,89 +111,23 @@ chat.setup {
     },
     LoadRepository = {
       prompt = "Load and chat with the content of gpt-repository-loader file for the current repository",
-      selection = function()
-        local repo_path = vim.fn.system('git rev-parse --show-toplevel'):gsub("\n", "")
-        local gpt_repo_loader_dir = os.getenv("HOME") .. '/gpt-repository-loader/'
-        local output_file_path = gpt_repo_loader_dir .. 'output.txt'
-        local cmd = 'python ' ..
-            gpt_repo_loader_dir ..
-            'gpt_repository_loader.py ' .. repo_path .. '-o ' .. output_file_path
-        vim.fn.system(cmd)
-        local file_path = vim.fn.expand(output_file_path)
-        local file_content = vim.fn.readfile(file_path)
-        if not file_content or #file_content == 0 then
-          vim.notify('No content found in ' .. file_path, vim.log.levels.ERROR)
-          return nil
-        end
-        return {
-          lines = table.concat(file_content, '\n'),
-          filename = file_path,
-          filetype = vim.fn.fnamemodify(file_path, ':e'),
-        }
-      end,
+      selection = CopilotChatLoadRepository,
     }
   },
   window = {
-    layout = 'horizontal',  -- 'vertical', 'horizontal', 'float', 'replace'
-    width = 0.5,            -- fractional width of parent, or absolute width in columns when > 1
-    height = 0.4,           -- fractional height of parent, or absolute height in rows when > 1
+    layout = 'vertical',                                   -- 'vertical', 'horizontal', 'float', 'replace'
+    width = 0.3,                                           -- fractional width of parent, or absolute width in columns when > 1
+    height = 1.0,                                          -- fractional height of parent, or absolute height in rows when > 1
     -- Options below only apply to floating windows
-    relative = 'editor',    -- 'editor', 'win', 'cursor', 'mouse'
-    border = 'single',      -- 'none', single', 'double', 'rounded', 'solid', 'shadow'
-    row = 1,                -- row position of the window, default is centered
-    col = nil,              -- column position of the window, default is centered
-    title = 'Copilot Chat', -- title of chat window
-    footer = nil,           -- footer of chat window
-    zindex = 1,             -- determines if window is on top or below other floating windows
+    relative = 'editor',                                   -- 'editor', 'win', 'cursor', 'mouse'
+    border = 'single',                                     -- 'none', single', 'double', 'rounded', 'solid', 'shadow'
+    row = 0,                                               -- row position of the window, default is centered
+    col = vim.o.columns - math.floor(vim.o.columns * 0.3), -- column position of the window, default is centered
+    title = 'Copilot Chat',                                -- title of chat window
+    footer = nil,                                          -- footer of chat window
+    zindex = 1,                                            -- determines if window is on top or below other floating windows
   },
 }
-
--- chat with Copilot using the selected content
-function CopilotChatSelection()
-  local input = vim.fn.input 'Quick Chat: '
-  if input ~= '' then
-    chat.ask(input, { selection = select.selection })
-  end
-end
-
--- chat with Copilot using the entire buffer content
-function CopilotChatBuffer()
-  local input = vim.fn.input 'Quick Chat: '
-  if input ~= '' then
-    chat.ask(input, { selection = select.buffer })
-  end
-end
-
--- chat with Copilot using the selected content
-function CopilotChatLoadRepository()
-  local input = vim.fn.input 'Quick Chat: '
-  if input ~= '' then
-    local repo_path = vim.fn.system('git rev-parse --show-toplevel'):gsub("\n", "")
-    local gpt_repo_loader_dir = os.getenv("HOME") .. '/gpt-repository-loader/'
-    local output_file_path = gpt_repo_loader_dir .. 'output.txt'
-    local cmd = 'python ' ..
-        gpt_repo_loader_dir ..
-        'gpt_repository_loader.py ' .. repo_path .. ' -o ' .. output_file_path
-    vim.fn.system(cmd)
-    local file_path = vim.fn.expand(output_file_path)
-    local file_content = vim.fn.readfile(file_path)
-    if not file_content or #file_content == 0 then
-      vim.notify('No content found in ' .. file_path, vim.log.levels.ERROR)
-      return
-    end
-    chat.ask(input, {
-      selection = function()
-        return
-        {
-          lines = table.concat(file_content, '\n'),
-          filename = file_path,
-          filetype = vim.fn.fnamemodify(file_path, ':e'),
-        }
-      end
-    })
-  end
-end
-
 -- display the action prompt using telescope
 function ShowCopilotChatActionPrompt()
   telescope.pick(actions.prompt_actions())
