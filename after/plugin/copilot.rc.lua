@@ -110,14 +110,14 @@ chat.setup {
       selection = select.selection,
     },
     LoadRepository = {
-      prompt = "Load and chat with the content of gpt-repository-loader file for the current repository",
+      prompt = "このリポジトリの解説をしてください。",
       selection = CopilotChatLoadRepository,
     }
   },
   window = {
-    layout = 'horizontal',  -- 'vertical', 'horizontal', 'float', 'replace'
-    width = 1.0,            -- fractional width of parent, or absolute width in columns when > 1
-    height = 0.4,           -- fractional height of parent, or absolute height in rows when > 1
+    layout = 'vertical',    -- 'vertical', 'horizontal', 'float', 'replace'
+    width = 0.3,            -- fractional width of parent, or absolute width in columns when > 1
+    height = 0.3,           -- fractional height of parent, or absolute height in rows when > 1
     -- Options below only apply to floating windows
     relative = 'editor',    -- 'editor', 'win', 'cursor', 'mouse'
     border = 'single',      -- 'none', single', 'double', 'rounded', 'solid', 'shadow'

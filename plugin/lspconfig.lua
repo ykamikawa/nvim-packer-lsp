@@ -189,6 +189,12 @@ nvim_lsp.graphql.setup {
   capabilities = capabilities,
 }
 
+-- Terraform
+nvim_lsp.terraformls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+
 -- SQL
 nvim_lsp.sqls.setup {
   on_attach = on_attach,
