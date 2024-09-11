@@ -18,7 +18,6 @@ lspconfig.setup {
     'yamlls',
     'taplo',
     'html',
-    'tsserver',
     'pyright',
     'ruff',
     'ruff_lsp',
