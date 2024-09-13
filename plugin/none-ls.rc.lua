@@ -37,7 +37,6 @@ local sources = {
   diagnostics.write_good,                        -- English
   diagnostics.markdownlint,                      -- markdown
   diagnostics.eslint_d,                          -- Javascript, Typescript
-  diagnostics.tsc,                               -- Javascript, Typescript
   -- diagnostics.ruff,                              -- Python
   diagnostics.mypy,                              -- Python
   -- diagnostics.flake8,                                -- Python
