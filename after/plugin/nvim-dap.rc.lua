@@ -110,7 +110,6 @@ highlight.setup()
 -- nvim-dap-python
 local venv = os.getenv 'VIRTUAL_ENV'
 if venv == nil then
-  print 'VIRTUAL_ENV is not set'
   return
 else
   local command = string.format('%s/bin/python', venv)

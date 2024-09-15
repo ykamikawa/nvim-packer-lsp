@@ -67,6 +67,12 @@ function CopilotChatLoadRepository()
   end
 end
 
+-- Reset the Copilot chat content
+function CopilotChatReset()
+  chat.reset()
+  vim.notify('Copilot chat has been reset.', vim.log.levels.INFO)
+end
+
 chat.setup {
   debug = true,           -- Enable debug mode
   proxy = nil,            -- Proxy server URL
@@ -161,3 +167,5 @@ vim.api.nvim_set_keymap(
 )
 -- ch (Copilot Chat Help) display the action help using telescope
 vim.api.nvim_set_keymap('n', 'ch', '<cmd>lua ShowCopilotChatActionHelp()<cr>', { noremap = true, silent = true })
+-- crs (Copilot Chat Reset) reset the Copilot chat content
+vim.api.nvim_set_keymap('n', 'cs', '<cmd>lua CopilotChatReset()<cr>', { noremap = true, silent = true })
